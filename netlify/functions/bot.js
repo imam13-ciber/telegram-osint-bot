@@ -22,7 +22,6 @@ exports.handler = async (event) => {
             };
         }
 
-        // START
         if (text === '/start') {
 
             await bot.sendMessage(
@@ -31,9 +30,9 @@ exports.handler = async (event) => {
                 '/ip 8.8.8.8\n' +
                 '/user username'
             );
+
         }
 
-        // IP LOOKUP
         else if (text.startsWith('/ip')) {
 
             const ip = text.split(' ')[1];
@@ -41,20 +40,22 @@ exports.handler = async (event) => {
             try {
 
                 const response = await axios.get(
-                    http://ip-api.com/json/${ip}
+                    `http://ip-api.com/json/${ip}`
                 );
 
                 const d = response.data;
 
                 const hasil =
-                    IP: ${ip}\n +
-                    NEGARA: ${d.country}\n +
-                    KOTA: ${d.city}\n +
-                    ISP: ${d.isp};
+                    'IP: ' + ip + '\n' +
+                    'NEGARA: ' + d.country + '\n' +
+                    'KOTA: ' + d.city + '\n' +
+                    'ISP: ' + d.isp;
 
                 await bot.sendMessage(chatId, hasil);
 
-            } catch {
+            }
+
+            catch {
 
                 await bot.sendMessage(
                     chatId,
@@ -63,18 +64,18 @@ exports.handler = async (event) => {
             }
         }
 
-        // USERNAME
         else if (text.startsWith('/user')) {
 
             const username = text.split(' ')[1];
 
             const hasil =
-                USERNAME OSINT\n\n +
-                GitHub:\nhttps://github.com/${username}\n\n +
-                Instagram:\nhttps://instagram.com/${username}\n\n +
-                Twitter/X:\nhttps://x.com/${username};
+                'USERNAME OSINT\n\n' +
+                'GitHub:\nhttps://github.com/' + username + '\n\n' +
+                'Instagram:\nhttps://instagram.com/' + username + '\n\n' +
+                'Twitter/X:\nhttps://x.com/' + username;
 
             await bot.sendMessage(chatId, hasil);
+
         }
 
         else {
@@ -90,7 +91,9 @@ exports.handler = async (event) => {
             body: 'OK'
         };
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         return {
             statusCode: 500,
